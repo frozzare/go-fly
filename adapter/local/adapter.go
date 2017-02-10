@@ -20,9 +20,13 @@ func NewAdapter(path string) *Adapter {
 	return &Adapter{path}
 }
 
+func (a *Adapter) appendPath(path string) string {
+	return filepath.Join(a.path, path)
+}
+
 // Copy will copy a file to new path locally.
 func (a *Adapter) Copy(src string, dst string) error {
-	srcFile, err := os.Open(src)
+	srcFile, err := os.Open(a.appendPath(src))
 	if err != nil {
 		return err
 	}
@@ -38,7 +42,7 @@ func (a *Adapter) Copy(src string, dst string) error {
 		return fmt.Errorf("%s is not a regular file", src)
 	}
 
-	destFile, err := os.Create(dst)
+	destFile, err := os.Create(a.appendPath(dst))
 	if err != nil {
 		return err
 	}
@@ -68,12 +72,12 @@ func (a *Adapter) CreateDir(path string, args ...interface{}) error {
 		perm = args[0].(uint32)
 	}
 
-	return os.MkdirAll(strings.TrimRight(path, "/")+"/", os.FileMode(perm))
+	return os.MkdirAll(strings.TrimRight(a.appendPath(path), "/")+"/", os.FileMode(perm))
 }
 
 // Delete will delete a file locally.
 func (a *Adapter) Delete(path string) error {
-	if err := os.Remove(path); err != nil {
+	if err := os.Remove(a.appendPath(path)); err != nil {
 		return err
 	}
 
@@ -82,27 +86,29 @@ func (a *Adapter) Delete(path string) error {
 
 // DeleteDir will delete a directory.
 func (a *Adapter) DeleteDir(path string) error {
-	return a.Delete(strings.TrimRight(path, "/") + "/")
+	return a.Delete(strings.TrimRight(a.appendPath(path), "/") + "/")
 }
 
 // Has will check whether a file exists.
 func (a *Adapter) Has(path string) (bool, error) {
-	_, err := os.Stat(path)
+	_, err := os.Stat(a.appendPath(path))
 	return err == nil, nil
 }
 
 // HasDir will check whether a directory exists.
 func (a *Adapter) HasDir(path string) (bool, error) {
-	return a.Has(strings.TrimRight(path, "/") + "/")
+	return a.Has(strings.TrimRight(a.appendPath(path), "/") + "/")
 }
 
 // MimeType will return the file mime type.
 func (a *Adapter) MimeType(path string) (string, error) {
-	return strings.Split(mime.TypeByExtension(filepath.Ext(path)), ";")[0], nil
+	return strings.Split(mime.TypeByExtension(filepath.Ext(a.appendPath(path))), ";")[0], nil
 }
 
 // Read will read a file locally.
 func (a *Adapter) Read(path string) (string, error) {
+	path = a.appendPath(path)
+
 	if _, err := a.Has(path); err != nil {
 		return "", err
 	}
@@ -117,6 +123,7 @@ func (a *Adapter) Read(path string) (string, error) {
 
 // ReadAndDelete will read a file and delete it if any.
 func (a *Adapter) ReadAndDelete(path string) (string, error) {
+	path = a.appendPath(path)
 	content, err := a.Read(path)
 
 	if err != nil {
@@ -141,12 +148,14 @@ func (a *Adapter) Rename(src, dst string) error {
 
 // Write will write a a new file locally.
 func (a *Adapter) Write(path, content string, args ...interface{}) error {
-	permission := uint32(0644)
+	perm := uint32(0644)
 	if len(args) > 0 {
-		permission = args[0].(uint32)
+		perm = args[0].(uint32)
 	}
 
-	if err := ioutil.WriteFile(path, []byte(content), os.FileMode(permission)); err != nil {
+	a.CreateDir(filepath.Dir(path))
+
+	if err := ioutil.WriteFile(a.appendPath(path), []byte(content), os.FileMode(perm)); err != nil {
 		return err
 	}
 
