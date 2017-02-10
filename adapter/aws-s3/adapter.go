@@ -2,6 +2,7 @@ package flys3
 
 import (
 	"bytes"
+	"errors"
 	"mime"
 	"path/filepath"
 	"strings"
@@ -132,7 +133,7 @@ func (a *Adapter) Rename(src string, dst string) error {
 }
 
 // Write will write a a new file AWS S3.
-func (a *Adapter) Write(path, content string, args ...interface{}) (bool, error) {
+func (a *Adapter) Write(path, content string, args ...interface{}) error {
 	res, err := a.s3.PutObject(&s3.PutObjectInput{
 		Bucket:        aws.String(a.bucket),
 		Key:           aws.String(path),
@@ -142,8 +143,12 @@ func (a *Adapter) Write(path, content string, args ...interface{}) (bool, error)
 	})
 
 	if err != nil {
-		return false, err
+		return err
 	}
 
-	return len(*res.ETag) > 0, nil
+	if len(*res.ETag) == 0 {
+		return errors.New("No ETag created for path")
+	}
+
+	return nil
 }
