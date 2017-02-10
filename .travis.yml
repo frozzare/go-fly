@@ -10,5 +10,8 @@ before_install:
   - sudo apt-get update -q
   - sudo apt-get install glide -y
 
+install:
+ - glide install
+
 script:
  - go test $(go list ./... | grep -v /vendor/)
