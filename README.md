@@ -25,7 +25,7 @@ import (
     "log"
 
 	"github.com/frozzare/go-fly"
-    "github.com/frozzare/go-fly/adapter/local"
+    "github.com/frozzare/go-fly/adapter/flylocal"
 )
 
 func main() {

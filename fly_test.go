@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/frozzare/go-assert"
-	"github.com/frozzare/go-fly/adapter/local"
+	"github.com/frozzare/go-fly/adapter/flylocal"
 )
 
 func TestDirectory(t *testing.T) {
