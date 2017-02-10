@@ -21,6 +21,7 @@ $ go get github.com/frozzare/go-fly
 package main
 
 import (
+    "fmt"
     "log"
 
 	"github.com/frozzare/go-fly"
@@ -28,19 +29,19 @@ import (
 )
 
 func main() {
-    fs := fly.NewFly(flylocal.NewAdapter("/tmp/fly"))
+	fs := fly.NewFly(flylocal.NewAdapter("/tmp/fly"))
 
-    if err := fs.Write("test/file.txt", "Hello, world!"); err != nil {
-        log.Fatal(err)
-    }
+	if err := fs.Write("test/file.txt", "Hello, world!"); err != nil {
+		log.Fatal(err)
+	}
 
-    content, err := fs.Read("test/file.txt")
-    if err != nil {
-        log.Fatal(err)
-    }
+	content, err := fs.Read("test/file.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    fmt.Println(content)
-    // Hello, world!
+	fmt.Println(content)
+	// Hello, world!
 }
 ```
 
