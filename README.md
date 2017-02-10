@@ -12,7 +12,7 @@ $ go get github.com/frozzare/go-fly
 
 ## Adapters
 
-* AWS S3 (No ACL support yet)
+* AWS S3
 * Local
 
 ## Example
