@@ -86,7 +86,7 @@ func (a *Adapter) Delete(path string) error {
 
 // DeleteDir will delete a directory.
 func (a *Adapter) DeleteDir(path string) error {
-	return a.Delete(strings.TrimRight(a.appendPath(path), "/") + "/")
+	return a.Delete(strings.TrimRight(path, "/") + "/")
 }
 
 // Has will check whether a file exists.
@@ -97,7 +97,7 @@ func (a *Adapter) Has(path string) (bool, error) {
 
 // HasDir will check whether a directory exists.
 func (a *Adapter) HasDir(path string) (bool, error) {
-	return a.Has(strings.TrimRight(a.appendPath(path), "/") + "/")
+	return a.Has(strings.TrimRight(path, "/") + "/")
 }
 
 // MimeType will return the file mime type.
@@ -107,13 +107,11 @@ func (a *Adapter) MimeType(path string) (string, error) {
 
 // Read will read a file locally.
 func (a *Adapter) Read(path string) (string, error) {
-	path = a.appendPath(path)
-
 	if _, err := a.Has(path); err != nil {
 		return "", err
 	}
 
-	content, err := ioutil.ReadFile(path)
+	content, err := ioutil.ReadFile(a.appendPath(path))
 	if err != nil {
 		return "", err
 	}
@@ -123,7 +121,6 @@ func (a *Adapter) Read(path string) (string, error) {
 
 // ReadAndDelete will read a file and delete it if any.
 func (a *Adapter) ReadAndDelete(path string) (string, error) {
-	path = a.appendPath(path)
 	content, err := a.Read(path)
 
 	if err != nil {
