@@ -1,0 +1,14 @@
+language: go
+
+go:
+ - 1.6
+ - 1.7
+ - tip
+
+before_install:
+  - sudo add-apt-repository ppa:masterminds/glide -y
+  - sudo apt-get update -q
+  - sudo apt-get install glide -y
+
+script:
+ - go test $(go list ./... | grep -v /vendor/)
