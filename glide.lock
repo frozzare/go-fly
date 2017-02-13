@@ -1,8 +1,8 @@
 hash: c00ff4cda4d6e77322270b975206e833f843b8aa9fcd3984d649c383585d68cf
-updated: 2017-02-10T11:38:57.046200734+01:00
+updated: 2017-02-13T09:00:17.775343409+01:00
 imports:
 - name: github.com/aws/aws-sdk-go
-  version: d0fbf73eb83b04efb11da581c46316ad853eaa15
+  version: f615b0905b52177eb0efa0fe59340c05c0ea0ed9
   subpackages:
   - aws
   - aws/awserr
@@ -21,6 +21,7 @@ imports:
   - private/protocol/xml/xmlutil
   - private/waiter
   - service/s3
+  - service/s3/s3iface
 - name: github.com/go-ini/ini
   version: 6e4869b434bd001f6983749881c7ead3545887d8
 - name: github.com/jmespath/go-jmespath
