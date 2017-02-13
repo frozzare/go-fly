@@ -11,16 +11,17 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3iface"
 )
 
 // Adapter represents a AWS S3 adapter.
 type Adapter struct {
 	bucket string
-	s3     *s3.S3
+	s3     s3iface.S3API
 }
 
 // NewAdapter creates a new AWS S3 adapter.
-func NewAdapter(client *s3.S3, bucket string) *Adapter {
+func NewAdapter(client s3iface.S3API, bucket string) *Adapter {
 	return &Adapter{bucket, client}
 }
 
