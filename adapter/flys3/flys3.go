@@ -117,11 +117,7 @@ func (a *Adapter) ReadAndDelete(path string) (string, error) {
 		return "", err
 	}
 
-	if err := a.Delete(path); err != nil {
-		return content, nil
-	}
-
-	return "", err
+	return content, a.Delete(path)
 }
 
 // Rename will rename a file to a new path on AWS S3.
