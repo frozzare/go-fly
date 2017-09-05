@@ -1,5 +1,5 @@
-hash: c4ed63739c98ce8c529482e1869813384b3a4e5a6e79c6eea4afc69d058e525b
-updated: 2017-09-05T21:06:41.851899503+02:00
+hash: 067359acebf407ab77c23c7c5f57f8cc44f7f6788b783a8927f181c1b8b5e94a
+updated: 2017-09-05T21:58:59.390217797+02:00
 imports:
 - name: github.com/aws/aws-sdk-go
   version: 960dd6034cbdac0e9716bfa66d91de88b286889f
@@ -28,4 +28,4 @@ imports:
   version: bd40a432e4c76585ef6b72d3fd96fb9b6dc7b68d
 testImports:
 - name: github.com/frozzare/go-assert
-  version: c507abe8291161f11f3a74642ee44dfb993cdaa5
+  version: 6f04caa18e10470209b248c4a29c400a4a52bd5d

@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"runtime"
 	"testing"
+	"time"
 )
 
 func messageFromMsgAndArgs(msgAndArgs ...interface{}) string {
@@ -54,20 +55,62 @@ func isnil(actual interface{}) bool {
 	return false
 }
 
+var numericZeros = []interface{}{
+	int(0),
+	int8(0),
+	int16(0),
+	int32(0),
+	int64(0),
+	uint(0),
+	uint8(0),
+	uint16(0),
+	uint32(0),
+	uint64(0),
+	float32(0),
+	float64(0),
+}
+
 func empty(actual interface{}) bool {
 	if isnil(actual) {
 		return true
 	}
 
-	k := reflect.ValueOf(actual).Kind()
-	if k == reflect.Array || k == reflect.Chan || k == reflect.Map || k == reflect.Slice || k == reflect.String {
-		if reflect.ValueOf(actual).Len() == 0 {
+	if actual == "" {
+		return true
+	}
+
+	if actual == false {
+		return true
+	}
+
+	for _, v := range numericZeros {
+		if actual == v {
 			return true
 		}
 	}
 
-	if actual == 0 || actual == 0.0 {
-		return true
+	actValue := reflect.ValueOf(actual)
+
+	switch actValue.Kind() {
+	case reflect.Map:
+		fallthrough
+	case reflect.Slice, reflect.Chan:
+		return (actValue.Len() == 0)
+	case reflect.Struct:
+		switch actual.(type) {
+		case time.Time:
+			return actual.(time.Time).IsZero()
+		}
+	case reflect.Ptr:
+		if actValue.IsNil() {
+			return true
+		}
+		switch actual.(type) {
+		case *time.Time:
+			return actual.(*time.Time).IsZero()
+		default:
+			return false
+		}
 	}
 
 	return false
@@ -77,12 +120,17 @@ func empty(actual interface{}) bool {
 func Fail(t *testing.T, expected, actual interface{}, msgAndArgs ...interface{}) {
 	message := messageFromMsgAndArgs(msgAndArgs...)
 	_, file, line, _ := runtime.Caller(2)
-	fmt.Printf("\033[31m✖\033[39m %s (%s:%d) \033[31m%v == %v\033[39m\n",
-		message,
+
+	if message > "" {
+		message = fmt.Sprintf("(%s)", message)
+	}
+
+	t.Errorf("\r\033[39m%s:%d \033[31m%v == %v\033[39m %s\n",
 		filepath.Base(file),
 		line,
 		expected,
-		actual)
+		actual,
+		message)
 }
 
 // Equal compare the expected value with the actual value and determine if the values are the same.
