@@ -1,6 +1,6 @@
 # Fly [![Build Status](https://travis-ci.org/frozzare/go-fly.svg?branch=master)](https://travis-ci.org/frozzare/go-fly) [![GoDoc](https://godoc.org/github.com/frozzare/go-fly?status.svg)](https://godoc.org/github.com/frozzare/go-fly)
 
-> WIP
+> Work In Progress
 
 Fly is a insperation of [Flysystem](https://flysystem.thephpleague.com/) for Go. Fly is a filesystem abstraction which allows you to easily swap out a local filesystem for a remote one.
 
