@@ -38,7 +38,7 @@ func TestDirectory(t *testing.T) {
 
 	has, err = fs.HasDir("test/folder")
 	assert.False(t, has)
-	assert.Nil(t, err)
+	assert.NotNil(t, err)
 }
 
 func TestFile(t *testing.T) {
