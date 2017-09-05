@@ -2,7 +2,7 @@
 
 > Work In Progress
 
-Fly is a insperation of [Flysystem](https://flysystem.thephpleague.com/) for Go. Fly is a filesystem abstraction which allows you to easily swap out a local filesystem for a remote one.
+Fly is inspired by [Flysystem](https://flysystem.thephpleague.com/). Fly is a filesystem abstraction which allows you to easily swap out a local filesystem for a remote one.
 
 ## Installation
 
