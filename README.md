@@ -1,4 +1,4 @@
-# Fly [![Build Status](https://travis-ci.org/frozzare/go-fly.svg?branch=master)](https://travis-ci.org/frozzare/go-fly) [![GoDoc](https://godoc.org/github.com/frozzare/go-fly?status.svg)](https://godoc.org/github.com/frozzare/go-fly)
+# Fly [![Build Status](https://travis-ci.org/frozzare/go-fly.svg?branch=master)](https://travis-ci.org/frozzare/go-fly) [![GoDoc](https://godoc.org/github.com/frozzare/go-fly?status.svg)](https://godoc.org/github.com/frozzare/go-fly) [![Go Report Card](https://goreportcard.com/badge/github.com/frozzare/go-fly)](https://goreportcard.com/report/github.com/frozzare/go-fly)
 
 > Work In Progress
 
