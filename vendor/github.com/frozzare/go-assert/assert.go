@@ -76,7 +76,7 @@ func empty(actual interface{}) bool {
 // Fail logs a failed message.
 func Fail(t *testing.T, expected, actual interface{}, msgAndArgs ...interface{}) {
 	message := messageFromMsgAndArgs(msgAndArgs...)
-	_, file, line, _ := runtime.Caller(1)
+	_, file, line, _ := runtime.Caller(2)
 	fmt.Printf("\033[31m✖\033[39m %s (%s:%d) \033[31m%v == %v\033[39m\n",
 		message,
 		filepath.Base(file),
