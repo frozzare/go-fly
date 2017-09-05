@@ -23,8 +23,8 @@ package main
 import (
     "fmt"
     "log"
-
-	"github.com/frozzare/go-fly"
+    
+    "github.com/frozzare/go-fly"
     "github.com/frozzare/go-fly/adapter/flylocal"
 )
 
