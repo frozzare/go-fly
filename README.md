@@ -7,7 +7,7 @@ Fly is a insperation of [Flysystem](https://flysystem.thephpleague.com/) for Go.
 ## Installation
 
 ```
-$ go get github.com/frozzare/go-fly
+$ go get -u github.com/frozzare/go-fly
 ```
 
 ## Adapters
@@ -45,6 +45,6 @@ func main() {
 }
 ```
 
-# License
+## License
 
 MIT © [Fredrik Forsmo](https://github.com/frozzare)
